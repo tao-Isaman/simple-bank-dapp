@@ -1,0 +1,11 @@
+{
+  "name": "blockchain-python",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "tao-isaman <towlovelove@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ganache": "^7.3.2",
+    "ganache-cli": "^6.12.2"
+  }
+}
