@@ -22,3 +22,17 @@ def test_deposit_success(token):
         })
     
     assert token.balanceOf("Acc 3").return_value == 10
+
+def test_withdraw_success(token):
+    token.createAccount("Acc 4")
+    token.deposit("Acc 4", {
+        'from': accounts[0],
+        'value' : 50
+        })
+    
+    token.withdraw("Acc 4",40, {
+        'from' : accounts[0],
+    })
+    
+    assert token.balanceOf("Acc 4").return_value == 10
+

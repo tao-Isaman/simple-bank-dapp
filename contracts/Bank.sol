@@ -36,9 +36,9 @@ contract Bank {
     function deposit(string calldata accountName) payable public {
         (bool found, uint index) = getIndexByAccountName(accountName);
         require(found, "no Account Found");
+        
         _balances[msg.sender] += msg.value;
         accountList[index].balances += msg.value;
-
     }
 
     function balanceOf(string calldata accountName) public returns(uint) {
@@ -54,6 +54,15 @@ contract Bank {
             }
         }
         return (false, 0);
+    }
+
+    function withdraw(string calldata accountName, uint amount) public {
+        (bool found, uint index) = getIndexByAccountName(accountName);
+        require(found, "no Acc ount Found");
+        require(accountList[index].balances >= amount);
+
+        _balances[msg.sender] -= amount;
+        accountList[index].balances -= amount;
     }
 
     // function deposit(){}
