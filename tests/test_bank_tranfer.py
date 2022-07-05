@@ -14,7 +14,7 @@ def test_tranfer_with_same_owner_success(contract):
     })
     
     assert contract.balanceOf("Acc 5").return_value == 100
-    assert contract.balanceOf("Acc 6").return_value == 396
+    assert contract.balanceOf("Acc 6").return_value == 400
 
 def test_tranfer_with_different_owner_success(contract):
     contract.createAccount("Acc 7", {

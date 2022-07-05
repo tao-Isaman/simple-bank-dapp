@@ -90,7 +90,7 @@ contract Bank {
         require(foundRecive, "no Acc ount Found");
 
         uint free = 0;
-        if(accountList[currentIndex].owner == accountList[currentIndex].owner){
+        if(accountList[currentIndex].owner != accountList[reciveIndex].owner){
             free = amount * 1/100;
             _balances[bankOwner] += free;
         }
@@ -99,6 +99,12 @@ contract Bank {
 
         accountList[reciveIndex].balances += amount - free;
         _balances[accountList[reciveIndex].owner] += amount - free;
+    }
+
+    function multipleTranfer(string calldata currentAccount, string[] calldata reciveAccountList, uint amount) public{
+        for(uint i = 0; i < reciveAccountList.length; i++){        
+            tranfer(currentAccount, reciveAccountList[i], amount);
+        }
     }
 
     
