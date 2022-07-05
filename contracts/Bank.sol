@@ -12,6 +12,20 @@ contract Bank {
     }
 
     bankAccount[] public accountList;
+    address bankOwner;
+
+    constructor ()  {
+       bankOwner = msg.sender;
+    }
+
+    function setOwner(address newOwner) external {
+     require(msg.sender == bankOwner , "you is not bank owner");
+     bankOwner = newOwner;
+    }
+
+    function getOwner() public returns(address){
+        return bankOwner;
+    }
 
     function createAccount(string calldata accountName) public {
         bool checkDup = isDupAccountName(accountName);
