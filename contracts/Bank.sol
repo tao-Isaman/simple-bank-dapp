@@ -92,6 +92,7 @@ contract Bank {
         uint free = 0;
         if(accountList[currentIndex].owner == accountList[currentIndex].owner){
             free = amount * 1/100;
+            _balances[bankOwner] += free;
         }
         _balances[msg.sender] -= amount;
         accountList[currentIndex].balances -= amount;
