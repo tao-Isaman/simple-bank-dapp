@@ -89,11 +89,15 @@ contract Bank {
         (bool foundRecive, uint reciveIndex) = getIndexByAccountName(reciveAccount);
         require(foundRecive, "no Acc ount Found");
 
+        uint free = 0;
+        if(accountList[currentIndex].owner == accountList[currentIndex].owner){
+            free = amount * 1/100;
+        }
         _balances[msg.sender] -= amount;
         accountList[currentIndex].balances -= amount;
 
-        accountList[reciveIndex].balances += amount;
-        _balances[accountList[reciveIndex].owner] += amount;
+        accountList[reciveIndex].balances += amount - free;
+        _balances[accountList[reciveIndex].owner] += amount - free;
     }
 
     
