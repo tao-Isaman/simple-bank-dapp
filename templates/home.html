@@ -1,0 +1,57 @@
+<html>
+<head>
+    <title>Hello page</title>
+    <link
+    href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4-rc.1/web3.min.js"></script>
+  <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+<body>
+    <div class="flex flex-row-reverse pr-5 pt-5">
+    <button id="address" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="connect();">
+        Connect Wallet
+      </button>
+    </div>
+    <div>
+      <div class="flex justify-center rounded overflow-hidden shadow-lg pt-10">
+        <div class="px-6 py-4">
+          <div class="font-bold text-xl mb-2">SCB10X BlockChain Camp2022</div>
+          <div class="inline-block relative w-64">
+            <select id="select" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow">
+              <option id="create">Create Account</option>
+              <option id="deposit">Deposit</option>
+              <option id="tranfer">Tranfer</option>
+              <option id="multi">Multiple Tranfer</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+    </div>
+</body>
+<script>
+    /* To connect using MetaMask */
+    async function connect() {
+     if (window.ethereum) {
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+      window.web3 = new Web3(window.ethereum);
+
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const account = accounts[0];
+
+      document.getElementById("address").innerHTML = account;
+      
+     } else {
+      console.log("No wallet");
+     }
+    }
+
+    function displayDivDemo(id, elementValue) {
+      document.getElementById(id).style.display = elementValue.value == 1 ? 'block' : 'none';
+   }
+
+    </script>
+</html>

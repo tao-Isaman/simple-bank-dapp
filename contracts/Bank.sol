@@ -34,6 +34,10 @@ contract Bank {
         accountList.push(newAccount);
     }
 
+    function getAccountList() public returns(bankAccount[] memory){
+        return accountList;
+    }
+
     function countAccount() public returns(uint) {
       return accountList.length;
     }

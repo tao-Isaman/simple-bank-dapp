@@ -1,0 +1,12 @@
+from brownie import accounts
+from .test_base import contract
+
+
+def test_get_list_account(contract):
+    contract.createAccount("Acc 1")
+    contract.createAccount("Acc 2")
+    
+    listAccount = ['Acc 1', 'Acc 2']
+    
+    assert contract.getOwner().return_value == listAccount
+
