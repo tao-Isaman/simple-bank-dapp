@@ -1,9 +1,198 @@
 <template>
   <div class="about">
-    <h1>Multiple Tranfer</h1>
+    <div class="max-w-sm rounded overflow-hidden shadow-lg">
+      <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-2">Multiple Tranfer</div>
+
+        <div class="md:flex md:items-center mb-6">
+          <div class="md:w-1/3">
+            <label
+              class="
+                block
+                text-gray-500
+                font-bold
+                md:text-right
+                mb-1
+                md:mb-0
+                pr-4
+              "
+              for="inline-full-name"
+            >
+              Account Name
+            </label>
+          </div>
+          <div class="md:w-2/3">
+            <input
+              class="
+                bg-gray-200
+                appearance-none
+                border-2 border-gray-200
+                rounded
+                w-full
+                py-2
+                px-4
+                text-gray-700
+                leading-tight
+                focus:outline-none focus:bg-white focus:border-purple-500
+              "
+              id="inline-full-name"
+              type="text"
+              v-model="accountName"
+            />
+          </div>
+        </div>
+
+        <div class="md:flex md:items-center mb-6">
+          <div class="md:w-1/3">
+            <label
+              class="
+                block
+                text-gray-500
+                font-bold
+                md:text-right
+                mb-1
+                md:mb-0
+                pr-4
+              "
+              for="inline-full-name"
+            >
+              Account List
+            </label>
+          </div>
+          <div class="columns">
+            <h2 v-for="account in accountList" v-bind:key="account">
+              {{ account }}
+            </h2>
+          </div>
+        </div>
+
+        <div class="md:flex md:items-center mb-6">
+          <div class="md:w-1/3">
+            <label
+              class="
+                block
+                text-gray-500
+                font-bold
+                md:text-right
+                mb-1
+                md:mb-0
+                pr-4
+              "
+              for="inline-full-name"
+            >
+              Amount
+            </label>
+          </div>
+          <div class="md:w-2/3">
+            <input
+              class="
+                bg-gray-200
+                appearance-none
+                border-2 border-gray-200
+                rounded
+                w-full
+                py-2
+                px-4
+                text-gray-700
+                leading-tight
+                focus:outline-none focus:bg-white focus:border-purple-500
+              "
+              id="inline-full-name"
+              type="text"
+              v-model="amount"
+            />
+          </div>
+        </div>
+        <div class="md:flex md:items-center">
+          <div class="md:w-1/3"></div>
+          <div class="md:w-2/3">
+            <button
+              id="create"
+              class="
+                bg-purple-500
+                hover:bg-purple-700
+                text-white
+                font-bold
+                py-2
+                px-4
+                rounded
+              "
+              @click="tranfer"
+            >
+              Tranfer
+            </button>
+          </div>
+          <div class="md:w-3/3">
+            <button
+              id="create"
+              class="
+                bg-purple-100
+                hover:bg-purple-300
+                text-gray-500
+                font-bold
+                py-2
+                px-4
+                rounded
+              "
+              @click="addAccount"
+            >
+              Add Account
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
-<style>
+<script lang="ts">
+import fs from "fs";
+import Web3 from "web3";
+import abi from "../assets/Bank.json";
+import { ref } from "vue";
+const web3 = new Web3((window as any).web3.currentProvider);
 
+//local contract
+var contract = new web3.eth.Contract(
+  abi.abi,
+  "0x43cbD0E8b1b143B8E489711d99c1834aCC1cA061"
+);
+export default {
+  props: {
+    address: "",
+  },
+  data() {
+    return {
+      accountName: "",
+      amount: "",
+      accountList: ref([]),
+    };
+  },
+  methods: {
+    async tranfer() {
+      console.log(this.address);
+      await contract.methods
+        .createAccount(this.accountList, this.amount)
+        .send({ from: this.address })
+        .then((result) => {
+          console.log(result);
+        });
+      await contract.methods
+        .getAccountList()
+        .call()
+        .then((result) => {
+          console.log(result);
+        });
+    },
+    addAccount() {
+      this.accountList.push(this.accountName);
+      this.accountName = "";
+      console.log(this.accountList);
+    },
+  },
+};
+</script>
+
+
+<style>
 </style>

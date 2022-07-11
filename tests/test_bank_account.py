@@ -6,7 +6,7 @@ def test_get_list_account(contract):
     contract.createAccount("Acc 1")
     contract.createAccount("Acc 2")
     
-    listAccount = ['Acc 1', 'Acc 2']
     
-    assert contract.getOwner().return_value == listAccount
+    assert contract.getAccountList().return_value[0][1] == 'Acc 1'
+    assert contract.getAccountList().return_value[1][1] == 'Acc 2'
 

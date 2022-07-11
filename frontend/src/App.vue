@@ -37,8 +37,12 @@ const computeAddress = computed(() => "connected to " + address.value.substring(
       <h1 class="violet text-2xl pt-14">SCB10X BlockChain Camp 2022</h1>
       <nav class="violet">
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/create">Create Account</RouterLink>
+        <RouterLink :to="{
+          name : 'create',
+          params: { address : address}
+        }">Create Account</RouterLink>
         <RouterLink to="/deposit">Deposit</RouterLink>
+        <RouterLink to="/withdraw">Withdraw</RouterLink>
         <RouterLink to="/tranfer">Tranfer</RouterLink>
         <RouterLink to="/multi-tranfer">Multiple Tranfer</RouterLink>
       </nav>

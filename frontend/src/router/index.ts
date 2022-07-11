@@ -20,6 +20,11 @@ const router = createRouter({
       component: () => import('../views/DepositView.vue')
     },
     {
+      path: '/withdraw',
+      name: 'withdraw',
+      component: () => import('../views/WithdrawView.vue')
+    },
+    {
       path: '/tranfer',
       name: 'tranfer',
       component: () => import('../views/TranferView.vue')
@@ -27,6 +32,7 @@ const router = createRouter({
     {
       path: '/create',
       name: 'create',
+      props: true,
       component: () => import('../views/CreateAccountView.vue')
     },
     {
